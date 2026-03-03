@@ -1,3 +1,3 @@
 export default function Sobre() {
-  return <div></div>;
+  return <div className="h-dvh w-full"></div>;
 }

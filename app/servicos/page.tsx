@@ -1,3 +1,3 @@
 export default function Servicos() {
-  return <div></div>;
+  return <div className="h-dvh w-full"></div>;
 }
