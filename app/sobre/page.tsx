@@ -11,7 +11,7 @@ export default function Sobre() {
       </div>
 
       <Card className="h-3/4 w-4/5 flex flex-col items-center justify-center bg-blue-950 border-0">
-        <CardHeader className=" w-full text-center">
+        <CardHeader className=" w-full text-center lg:text-start">
           <CardTitle className="text-white text-xl">Sobre</CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col justify-center items-center gap-8 lg:gap-18">
