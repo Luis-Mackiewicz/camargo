@@ -1,19 +1,47 @@
+"use client";
+
 import { Button } from "@/components/button";
 import LogoCamargoAdvocacia from "@/public/logo.svg";
 import themisImage from "@/public/themis.svg";
 import Link from "next/link";
 import Image from "next/image";
 
+const consoleMessage = `
+
+ ██████╗ █████╗ ███╗   ███╗ █████╗ ██████╗  ██████╗  ██████╗         
+██╔════╝██╔══██╗████╗ ████║██╔══██╗██╔══██╗██╔════╝ ██╔═══██╗        
+██║     ███████║██╔████╔██║███████║██████╔╝██║  ███╗██║   ██║        
+██║     ██╔══██║██║╚██╔╝██║██╔══██║██╔══██╗██║   ██║██║   ██║        
+╚██████╗██║  ██║██║ ╚═╝ ██║██║  ██║██║  ██║╚██████╔╝╚██████╔╝        
+ ╚═════╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝  ╚═════╝         
+                                                                     
+ █████╗ ██████╗ ██╗   ██╗ ██████╗  ██████╗ █████╗  ██████╗██╗ █████╗ 
+██╔══██╗██╔══██╗██║   ██║██╔═══██╗██╔════╝██╔══██╗██╔════╝██║██╔══██╗
+███████║██║  ██║██║   ██║██║   ██║██║     ███████║██║     ██║███████║
+██╔══██║██║  ██║╚██╗ ██╔╝██║   ██║██║     ██╔══██║██║     ██║██╔══██║
+██║  ██║██████╔╝ ╚████╔╝ ╚██████╔╝╚██████╗██║  ██║╚██████╗██║██║  ██║
+╚═╝  ╚═╝╚═════╝   ╚═══╝   ╚═════╝  ╚═════╝╚═╝  ╚═╝ ╚═════╝╚═╝╚═╝  ╚═╝
+                                                                     
+`;
+
+console.log(consoleMessage);
+
 export default function Home() {
   return (
     <main className="relative h-dvh w-full flex items-center justify-center">
-      <div className="absolute inset-0 bg-[url('/bg-images/background-home.svg')] bg-cover opacity-50 -z-10" />
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-linear-to-t from-blue-700/80 via-blue-800/60 to-gray-900 z-1/90" />
+
+        <div className="absolute inset-0 bg-[url('/bg-images/background-home.svg')] bg-cover bg-center opacity-40" />
+      </div>
+
       <section className="h-3/4 w-4/5 mt-16 grid grid-cols-1  lg:grid-cols-2 lg:grid-rows-4">
         <div className="flex justify-center items-center lg:row-span-2">
           <Image
+            loading="eager"
             src={LogoCamargoAdvocacia}
             alt="logo camargo advocacia"
-            className="h-full"
+            className="h-auto"
           />
         </div>
         <div className="flex flex-col justify-center items-center">
@@ -38,6 +66,7 @@ export default function Home() {
             src={themisImage}
             alt="Imagem de Themis"
             className="h-full w-auto object-contain"
+            loading="eager"
           />
         </div>
       </section>
