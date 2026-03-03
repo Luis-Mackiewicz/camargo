@@ -8,30 +8,32 @@ export default function Home() {
   return (
     <main className="relative h-dvh w-full flex items-center justify-center">
       <div className="absolute inset-0 bg-[url('/bg-images/background-home.svg')] bg-cover opacity-50 -z-10" />
-      <section className="h-3/4 w-4/5 mt-16 grid grid-cols-1  lg:grid-cols-2 lg:grid-rows-3">
-        <div className="flex justify-center items-center">
+      <section className="h-3/4 w-4/5 mt-16 grid grid-cols-1  lg:grid-cols-2 lg:grid-rows-4">
+        <div className="flex justify-center items-center lg:row-span-2">
           <Image
             src={LogoCamargoAdvocacia}
             alt="logo camargo advocacia"
             className="h-full"
           />
         </div>
-        <div className="flex justify-center items-center">
-          <p className="text-white text-center font-bold">
-            Defendendo seus direitos com excelência e compromisso
+        <div className="flex flex-col justify-center items-center">
+          <p className="text-white text-base text-center font-bold ">
+            Defendendo seus direitos com excelência e compromisso, nossa atuação
+            é pautada pela ética inabalável e pela busca incessante por soluções
+            jurídicas precisas para cada cliente.{" "}
           </p>
         </div>
-        <div className=" flex items-center justify-center w-full">
+        <div className="flex items-center justify-center w-full">
           <Button
             variant="secondary"
             size="lg"
             asChild
-            className="cursor-pointer rounded-2xl w-full"
+            className="cursor-pointer rounded-2xl w-full "
           >
             <Link href="/agendar">Agendar</Link>
           </Button>
         </div>
-        <div className="hidden lg:flex items-center justify-center lg:col-start-2 lg:row-start-1 lg:row-span-3 overflow-hidden">
+        <div className="hidden lg:flex items-center justify-center lg:col-start-2 lg:row-start-1 lg:row-span-4 overflow-hidden">
           <Image
             src={themisImage}
             alt="Imagem de Themis"
