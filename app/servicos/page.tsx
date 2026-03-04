@@ -1,4 +1,24 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/card";
+import { areasOfSpecialization } from "@/constants/areas";
+import Image from "next/image";
+
+const specializationCards = areasOfSpecialization.map((area) => {
+  return (
+    <article
+      key={area.id}
+      className="bg-white flex flex-col items-center text-center rounded-2xl shadow-2xl transition-all cursor-pointer hover:scale-105 p-4 gap-y-8 md:p-16"
+    >
+      <Image
+        src={area.icone}
+        alt={area.alt}
+        width={10}
+        height={10}
+        className="w-auto h-auto"
+      />
+      {area.nome}
+    </article>
+  );
+});
 
 export default function Servicos() {
   return (
@@ -8,12 +28,16 @@ export default function Servicos() {
         <div className="absolute inset-0 bg-[url('/bg-images/background-services.svg')] bg-cover bg-center opacity-40" />
       </div>
 
-      <Card className="h-3/4 w-4/5  bg-blue-950 border-0">
-        <CardHeader className=" w-full text-center lg:text-start">
-          <CardTitle className="text-white text-xl">Sobre</CardTitle>
+      <Card className="h-3/4 w-4/5 flex flex-col items-center bg-blue-950 border-0 shadow-2xl">
+        <CardHeader className=" w-full text-center md:w-4/5 lg:text-start">
+          <CardTitle className="text-white text-xl md:text-4xl">
+            Serviços
+          </CardTitle>
         </CardHeader>
+        <CardContent className="w-4/5 h-4/5 my-auto grid grid-cols-2 gap-2 p-2 md:grid-cols-3 overflow-visible">
+          {specializationCards}
+        </CardContent>
       </Card>
-      <CardContent className=""></CardContent>
     </main>
   );
 }
