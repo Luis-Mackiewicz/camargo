@@ -61,11 +61,11 @@ export default function Home() {
             <Link href="/agendar">Agendar</Link>
           </Button>
         </div>
-        <div className="hidden lg:flex items-center justify-center lg:col-start-2 lg:row-start-1 lg:row-span-4 overflow-hidden">
+        <div className="hidden lg:flex items-center justify-center lg:col-start-2 lg:row-start-1 lg:row-span-4 overflow-visible">
           <Image
             src={themisImage}
             alt="Imagem de Themis"
-            className="h-full w-auto object-contain"
+            className="h-full w-auto object-contain transition-all duration-700 hover:scale-105"
             loading="eager"
           />
         </div>
