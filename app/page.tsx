@@ -56,7 +56,7 @@ export default function Home() {
             variant="secondary"
             size="lg"
             asChild
-            className="cursor-pointer rounded-2xl w-full "
+            className="cursor-pointer rounded-2xl w-full shadow-2xl"
           >
             <Link href="/agendar">Agendar</Link>
           </Button>
