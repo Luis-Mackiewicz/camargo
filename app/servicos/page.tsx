@@ -29,12 +29,12 @@ export default function Servicos() {
       </div>
 
       <Card className="h-3/4 w-4/5 flex flex-col items-center bg-blue-950 border-0 shadow-2xl">
-        <CardHeader className=" w-full text-center md:w-4/5 lg:text-start">
+        <CardHeader className="w-full text-center md:w-4/5 lg:text-start">
           <CardTitle className="text-white text-xl md:text-4xl">
             Serviços
           </CardTitle>
         </CardHeader>
-        <CardContent className="w-4/5 h-4/5 my-auto grid grid-cols-2 gap-2 p-2 md:grid-cols-3 overflow-visible">
+        <CardContent className="w-4/5 h-4/5 grid grid-cols-2 gap-2 p-2 md:grid-cols-3 overflow-visible">
           {specializationCards}
         </CardContent>
       </Card>
