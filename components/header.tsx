@@ -3,6 +3,8 @@ import { useRouter } from "next/navigation";
 import { MessageCircle } from "lucide-react";
 import Link from "next/link";
 import { Button } from "./button";
+import Image from "next/image";
+import CamargoIcon from "@/app/favicon.ico";
 export const whatsappLink =
   "https://wa.me/554499912505?text=Oi%21%20Estou%20entrando%20em%20contato%20com%20a%20Camargo%20Advocacia%20para%20falar%20sobre%20um%20assunto%20juridico.%20Poderiamos%20conversar%3F";
 
@@ -29,7 +31,7 @@ export default function Header() {
           </select>
           <Button
             asChild
-            className="bg-linear-to-r from-green-500 to-green-700 rounded-xl hover:scale-105 transition-transform"
+            className="bg-linear-to-r from-green-500 to-green-700 rounded-xl cursor-pointer hover:scale-105 transition-transform"
           >
             <a
               href={whatsappLink}
@@ -44,6 +46,11 @@ export default function Header() {
         </div>
 
         <ul className="hidden md:flex justify-center items-center gap-4 text-white text-sm md:text-base md:justify-end md:gap-8">
+          <li className="hover:opacity-40 transition-all duration-700 mr-auto ">
+            <Link href="/">
+              <Image src={CamargoIcon} alt="logo" />
+            </Link>
+          </li>
           <li className="hover:opacity-40 transition-all duration-700">
             <Link href="/">Início</Link>
           </li>
