@@ -29,7 +29,7 @@ export default function Header() {
           </select>
           <Button
             asChild
-            className="bg-linear-to-r from-green-500 to-green-700 rounded-2xl hover:scale-105 transition-transform"
+            className="bg-linear-to-r from-green-500 to-green-700 rounded-xl hover:scale-105 transition-transform"
           >
             <a
               href={whatsappLink}
