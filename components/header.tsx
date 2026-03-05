@@ -21,13 +21,11 @@ export default function Header() {
             }}
             className="bg-white rounded-2xl text-center text-sm"
           >
-            <div className="rounded-2xl">
-              <option value="/">Início</option>
-              <option value="sobre">Sobre</option>
-              <option value="servicos">Serviços</option>
-              <option value="agendar">Agendar</option>
-              <option value="videos">Vídeos</option>
-            </div>
+            <option value="/">Início</option>
+            <option value="sobre">Sobre</option>
+            <option value="servicos">Serviços</option>
+            <option value="agendar">Agendar</option>
+            <option value="videos">Vídeos</option>
           </select>
           <Button
             asChild
