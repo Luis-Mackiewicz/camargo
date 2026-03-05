@@ -1,10 +1,10 @@
 "use client";
-import { useRouter } from "next/navigation";
-import { MessageCircle } from "lucide-react";
-import Link from "next/link";
-import { Button } from "./button";
-import Image from "next/image";
 import CamargoIcon from "@/app/favicon.ico";
+import { MessageCircle } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { Button } from "./button";
 export const whatsappLink =
   "https://wa.me/554499912505?text=Oi%21%20Estou%20entrando%20em%20contato%20com%20a%20Camargo%20Advocacia%20para%20falar%20sobre%20um%20assunto%20juridico.%20Poderiamos%20conversar%3F";
 
