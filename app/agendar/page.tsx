@@ -16,7 +16,7 @@ import CamargoLogo from "@/public/logo.svg";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SendHorizonal } from "lucide-react";
 import Image from "next/image";
-import { useForm } from "react-hook-form";
+import { useForm, Controller, Control } from "react-hook-form";
 import * as z from "zod";
 
 const formSchema = z.object({
@@ -27,10 +27,14 @@ const formSchema = z.object({
 
   email: z.string().email("Email inválido"),
   phone: z.string().min(10, "Telefone inválido"),
+  area: z.string(),
   message: z.string().min(10, "Mensagem precida de no minimo 10 caracteres!"),
 });
 
 type FormData = z.infer<typeof formSchema>;
+type SelectOptionProps = {
+  control: Control<FormData>;
+};
 
 const Map = () => {
   return (
@@ -44,26 +48,35 @@ const Map = () => {
   );
 };
 
-const SelectOption = () => {
+const SelectOption = ({ control }: SelectOptionProps) => {
   return (
-    <Select>
-      <SelectTrigger className="w-full">
-        <SelectValue placeholder="áreas do direito" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectLabel>Áreas do direito</SelectLabel>
-          <SelectItem value="civil">direito civil</SelectItem>
-          <SelectItem value="penal">direito penal</SelectItem>
-          <SelectItem value="trabalhista">direito trabalhista</SelectItem>
-          <SelectItem value="previdenciario">direito previdenciário</SelectItem>
-          <SelectItem value="empresarial">direito empresarial</SelectItem>
-          <SelectItem value="familia">direito da família</SelectItem>
-          <SelectItem value="consumidor">direito do consumidor</SelectItem>
-          <SelectItem value="outro">outro</SelectItem>
-        </SelectGroup>
-      </SelectContent>
-    </Select>
+    <Controller
+      control={control}
+      name="area"
+      render={({ field }) => (
+        <Select onValueChange={field.onChange} defaultValue={field.value}>
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="áreas do direito" />
+          </SelectTrigger>
+
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Áreas do direito</SelectLabel>
+              <SelectItem value="civil">direito civil</SelectItem>
+              <SelectItem value="penal">direito penal</SelectItem>
+              <SelectItem value="trabalhista">direito trabalhista</SelectItem>
+              <SelectItem value="previdenciario">
+                direito previdenciário
+              </SelectItem>
+              <SelectItem value="empresarial">direito empresarial</SelectItem>
+              <SelectItem value="familia">direito da família</SelectItem>
+              <SelectItem value="consumidor">direito do consumidor</SelectItem>
+              <SelectItem value="outro">outro</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      )}
+    />
   );
 };
 
@@ -75,6 +88,7 @@ export default function Agendar() {
       name: "",
       email: "",
       phone: "",
+      area: "",
       message: "",
     },
   });
@@ -104,7 +118,7 @@ export default function Agendar() {
           action=""
           className="flex items-center justify-center  bg-white/95 row-span-2 md:col-span-2 rounded-b-xl md:rounded-xl md:rounded-l-none"
         >
-          <fieldset className="w-4/5  flex flex-col gap-2.5 md:gap-5">
+          <fieldset className="w-4/5 flex flex-col gap-2.5 md:gap-5 overflow-y-auto max-h-full pr-2">
             <div className="flex flex-col">
               <Input
                 type="text"
@@ -150,7 +164,7 @@ export default function Agendar() {
               )}
             </div>
             <div className="flex flex-col">
-              <SelectOption />
+              <SelectOption control={form.control} />
             </div>
             <div className="flex flex-col">
               <Textarea {...form.register("message")} />
@@ -163,7 +177,20 @@ export default function Agendar() {
             )}
             <Button
               variant="default"
-              className="cursor-pointer rounded-2xl transition-all shadow-2xl bg-blue-900 duration-300 hover:scale-105 hover:cursor-pointer hover:bg-linear-to-r from-green-500 to-green-700"
+              className="
+                cursor-pointer
+                rounded-2xl
+                shadow-2xl
+               bg-blue-900
+               text-white
+                flex items-center gap-2
+                transition-all
+               duration-300
+                ease-in-out
+               hover:bg-green-600
+                active:scale-95
+                disabled:opacity-50
+  "
               disabled={!form.formState.isValid}
             >
               enviar
