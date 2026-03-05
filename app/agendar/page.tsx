@@ -27,7 +27,7 @@ const formSchema = z.object({
 
   email: z.string().email("Email inválido"),
   phone: z.string().min(10, "Telefone inválido"),
-  area: z.string(),
+  area: z.string().min(1, "Selecione uma área"),
   message: z.string().min(10, "Mensagem precida de no minimo 10 caracteres!"),
 });
 
@@ -93,7 +93,29 @@ export default function Agendar() {
     },
   });
 
-  const onSubmit = (data: FormData) => console.log(data);
+  const onSubmit = async (data: FormData) => {
+    try {
+      const response = await fetch(
+        "https://formsubmit.co/ajax/contato@camargoadvocacia.com.br",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify(data),
+        },
+      );
+
+      if (response.ok) {
+        alert("Mensagem enviada com sucesso!");
+        form.reset();
+      }
+    } catch (error) {
+      console.error("Erro ao enviar", error);
+    }
+  };
+
   return (
     <main className="relative h-dvh w-full flex items-center justify-center">
       <div className="absolute inset-0 -z-10">
@@ -115,10 +137,21 @@ export default function Agendar() {
         </aside>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          action=""
           className="flex items-center justify-center  bg-white/95 row-span-2 md:col-span-2 rounded-b-xl md:rounded-xl md:rounded-l-none"
         >
           <fieldset className="w-4/5 flex flex-col gap-2.5 md:gap-5 overflow-y-auto max-h-full pr-2">
+            <input
+              type="hidden"
+              name="_subject"
+              value="Novo contato - Camargo Advocacia"
+            />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input
+              type="hidden"
+              name="_next"
+              value="http://localhost:3000/obrigado"
+            />
             <div className="flex flex-col">
               <Input
                 type="text"
@@ -165,16 +198,21 @@ export default function Agendar() {
             </div>
             <div className="flex flex-col">
               <SelectOption control={form.control} />
+              {form.formState.errors.area && (
+                <p className="text-red-500 text-sm">
+                  {form.formState.errors.area.message}
+                </p>
+              )}
             </div>
             <div className="flex flex-col">
               <Textarea {...form.register("message")} />
+              {form.formState.errors.message && (
+                <p className="text-red-500 text-sm">
+                  {form.formState.errors.message.message}
+                </p>
+              )}
             </div>
 
-            {form.formState.errors.message && (
-              <p className="text-red-500 text-sm">
-                {form.formState.errors.message.message}
-              </p>
-            )}
             <Button
               variant="default"
               className="
