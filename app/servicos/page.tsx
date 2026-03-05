@@ -6,7 +6,7 @@ const specializationCards = areasOfSpecialization.map((area) => {
   return (
     <article
       key={area.id}
-      className="bg-white flex flex-col items-center text-center rounded-2xl shadow-2xl transition-all cursor-pointer hover:scale-105 p-4 gap-y-8 md:p-16"
+      className="bg-white flex flex-col items-center text-center rounded-xl shadow-2xl transition-all cursor-pointer hover:scale-105 p-4 gap-y-8 md:p-16"
     >
       <Image
         src={area.icone}
@@ -34,7 +34,7 @@ export default function Servicos() {
             Serviços
           </CardTitle>
         </CardHeader>
-        <CardContent className="w-4/5 h-4/5 grid grid-cols-2 gap-2 p-2 md:grid-cols-3 overflow-visible">
+        <CardContent className="w-4/5 h-4/5 grid grid-cols-2 gap-1 p-2 md:grid-cols-3 overflow-visible md:gap-4">
           {specializationCards}
         </CardContent>
       </Card>
