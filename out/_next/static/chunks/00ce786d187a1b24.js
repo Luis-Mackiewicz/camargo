@@ -1,0 +1,17 @@
+(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,96106,e=>{e.v("/_next/static/media/logo.b4b0b3d2.svg")},3255,e=>{e.v("/_next/static/media/themis.fd6d5270.svg")},86990,e=>{"use strict";let s={src:e.i(96106).default,width:558,height:356,blurWidth:0,blurHeight:0};e.s(["default",0,s])},72474,e=>{"use strict";var s=e.i(7685),a=e.i(88791),t=e.i(86990);let l={src:e.i(3255).default,width:1024,height:1536,blurWidth:0,blurHeight:0};var i=e.i(42747),r=e.i(30794);function c(){return(0,s.jsxs)("main",{className:"relative h-dvh w-full flex items-center justify-center",children:[(0,s.jsxs)("div",{className:"absolute inset-0 -z-10",children:[(0,s.jsx)("div",{className:"absolute inset-0 bg-linear-to-t from-blue-700/80 via-blue-800/60 to-gray-900 z-1/90"}),(0,s.jsx)("div",{className:"absolute inset-0 bg-[url('/bg-images/background-home.svg')] bg-cover bg-center opacity-60"})]}),(0,s.jsxs)("section",{className:"h-3/4 w-4/5 mt-16 grid grid-cols-1  lg:grid-cols-2 lg:grid-rows-4",children:[(0,s.jsx)("div",{className:"flex justify-center items-center lg:row-span-2",children:(0,s.jsx)(r.default,{loading:"eager",src:t.default,alt:"logo camargo advocacia",className:"h-auto"})}),(0,s.jsx)("div",{className:"flex flex-col justify-center items-center",children:(0,s.jsxs)("p",{className:"text-white text-base text-center font-bold ",children:["Defendendo seus direitos com excelência e compromisso, nossa atuação é pautada pela ética inabalável e pela busca incessante por soluções jurídicas precisas para cada cliente."," "]})}),(0,s.jsx)("div",{className:"flex items-center justify-center w-full",children:(0,s.jsx)(a.Button,{variant:"secondary",size:"lg",asChild:!0,className:"cursor-pointer rounded-2xl w-full shadow-2xl transition-all duration-500 hover:scale-105",children:(0,s.jsx)(i.default,{href:"/agendar",children:"Agendar"})})}),(0,s.jsx)("div",{className:"hidden lg:flex items-center justify-center lg:col-start-2 lg:row-start-1 lg:row-span-4 overflow-visible",children:(0,s.jsx)(r.default,{src:l,alt:"Imagem de Themis",className:"h-full w-auto object-contain transition-all duration-700 hover:scale-105",loading:"eager"})})]})]})}console.log(`
+
+ ██████╗ █████╗ ███╗   ███╗ █████╗ ██████╗  ██████╗  ██████╗         
+██╔════╝██╔══██╗████╗ ████║██╔══██╗██╔══██╗██╔════╝ ██╔═══██╗        
+██║     ███████║██╔████╔██║███████║██████╔╝██║  ███╗██║   ██║        
+██║     ██╔══██║██║╚██╔╝██║██╔══██║██╔══██╗██║   ██║██║   ██║        
+╚██████╗██║  ██║██║ ╚═╝ ██║██║  ██║██║  ██║╚██████╔╝╚██████╔╝        
+ ╚═════╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝  ╚═════╝         
+                                                                     
+ █████╗ ██████╗ ██╗   ██╗ ██████╗  ██████╗ █████╗  ██████╗██╗ █████╗ 
+██╔══██╗██╔══██╗██║   ██║██╔═══██╗██╔════╝██╔══██╗██╔════╝██║██╔══██╗
+███████║██║  ██║██║   ██║██║   ██║██║     ███████║██║     ██║███████║
+██╔══██║██║  ██║╚██╗ ██╔╝██║   ██║██║     ██╔══██║██║     ██║██╔══██║
+██║  ██║██████╔╝ ╚████╔╝ ╚██████╔╝╚██████╗██║  ██║╚██████╗██║██║  ██║
+╚═╝  ╚═╝╚═════╝   ╚═══╝   ╚═════╝  ╚═════╝╚═╝  ╚═╝ ╚═════╝╚═╝╚═╝  ╚═╝
+                                                                     
+`),e.s(["default",()=>c],72474)}]);
