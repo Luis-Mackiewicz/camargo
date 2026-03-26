@@ -1,26 +1,16 @@
+"use client";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/card";
+import ServiceModal from "@/components/modal";
 import { areasOfSpecialization } from "@/constants/areas";
 import Image from "next/image";
+import { useState } from "react";
 
-const specializationCards = areasOfSpecialization.map((area) => {
-  return (
-    <article
-      key={area.id}
-      className="bg-white flex flex-col items-center text-center rounded-xl shadow-2xl transition-all cursor-pointer hover:scale-105 p-4 gap-y-8 md:p-16"
-    >
-      <Image
-        src={area.icone}
-        alt={area.alt}
-        width={10}
-        height={10}
-        className="w-auto h-auto"
-      />
-      {area.nome}
-    </article>
-  );
-});
+type Area = (typeof areasOfSpecialization)[0];
 
 export default function Servicos() {
+  const [selected, setSelected] = useState<Area | null>(null);
+
   return (
     <main className="relative h-dvh w-full flex items-center justify-center">
       <div className="absolute inset-0 -z-10">
@@ -35,9 +25,26 @@ export default function Servicos() {
           </CardTitle>
         </CardHeader>
         <CardContent className="w-4/5 h-4/5 grid grid-cols-2 gap-1 p-2 md:grid-cols-3 overflow-visible md:gap-4">
-          {specializationCards}
+          {areasOfSpecialization.map((area) => (
+            <article
+              key={area.id}
+              onClick={() => setSelected(area)}
+              className="bg-white flex flex-col items-center text-center rounded-xl shadow-2xl transition-all cursor-pointer hover:scale-105 p-4 gap-y-8 md:p-16"
+            >
+              <Image
+                src={area.icone}
+                alt={area.alt}
+                width={10}
+                height={10}
+                className="w-auto h-auto"
+              />
+              {area.nome}
+            </article>
+          ))}
         </CardContent>
       </Card>
+
+      <ServiceModal area={selected} onClose={() => setSelected(null)} />
     </main>
   );
 }
