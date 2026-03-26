@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/button";
 import { Input } from "@/components/input";
+import { useRouter } from "next/navigation";
 import {
   Select,
   SelectContent,
@@ -93,6 +94,8 @@ export default function Agendar() {
     },
   });
 
+  const router = useRouter();
+
   const onSubmit = async (data: FormData) => {
     try {
       const response = await fetch(
@@ -108,7 +111,7 @@ export default function Agendar() {
       );
 
       if (response.ok) {
-        alert("Mensagem enviada com sucesso!");
+        router.push("/obrigado");
         form.reset();
       }
     } catch (error) {
@@ -140,18 +143,6 @@ export default function Agendar() {
           className="flex items-center justify-center  bg-white/95 row-span-2 md:col-span-2 rounded-b-xl md:rounded-xl md:rounded-l-none"
         >
           <fieldset className="w-4/5 flex flex-col gap-2.5 md:gap-5 overflow-y-auto max-h-full pr-2">
-            <input
-              type="hidden"
-              name="_subject"
-              value="Novo contato - Camargo Advocacia"
-            />
-            <input type="hidden" name="_template" value="table" />
-            <input type="hidden" name="_captcha" value="false" />
-            <input
-              type="hidden"
-              name="_next"
-              value="http://localhost:3000/obrigado"
-            />
             <div className="flex flex-col">
               <Input
                 type="text"
