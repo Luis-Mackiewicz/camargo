@@ -1,1 +1,0 @@
-(globalThis.TURBOPACK||(globalThis.TURBOPACK=[])).push(["object"==typeof document?document.currentScript:void 0,96106,t=>{t.v("/_next/static/media/logo.b4b0b3d2.svg")},86990,t=>{"use strict";let e={src:t.i(96106).default,width:558,height:356,blurWidth:0,blurHeight:0};t.s(["default",0,e])}]);
