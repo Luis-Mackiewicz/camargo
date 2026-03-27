@@ -15,14 +15,33 @@ export default function Sobre() {
           </CardTitle>
         </CardHeader>
         <CardContent className="w-4/5 h-4/5 flex flex-col justify-center items-center gap-8 lg:gap-18">
-          <p className="text-center text-white/80">
-            Na Camargo Advocacia , acreditamos que o direito é mais do que uma
-            profissão: é uma ferramenta poderosa para transformar vidas,
-            proteger direitos e promover justiça. Fundada com o compromisso de
-            oferecer soluções jurídicas personalizadas e eficazes, nossa equipe
-            está preparada para atender às mais diversas demandas legais com
-            excelência e transparência.
-          </p>
+          <div className="flex flex-col text-white overflow-y-auto gap-y-4 text-center md:text-start md:gap-y-8">
+            <p>
+              Na Camargo Advocacia, compreendemos o Direito como um instrumento
+              essencial de proteção, garantia e efetivação de direitos, voltado
+              à solução de conflitos e à promoção da justiça de forma técnica,
+              ética e responsável.
+            </p>
+            <p>
+              Atuamos com seriedade, comprometimento e rigor jurídico na defesa
+              dos interesses de nossos clientes, oferecendo atendimento
+              personalizado e estratégias jurídicas compatíveis com as
+              particularidades de cada caso.
+            </p>
+            <p>
+              Com sólida atuação nas áreas do Direito Previdenciário,
+              Trabalhista, Cível e de Família, nosso escritório se dedica à
+              prestação de serviços jurídicos com elevado padrão de qualidade,
+              pautado na transparência, na confiança e na busca por resultados
+              concretos.
+            </p>
+            <p>
+              Na Camargo Advocacia, cada demanda é analisada de forma
+              individualizada, com enfoque técnico, planejamento e atuação
+              eficiente, sempre com o propósito de entregar soluções seguras,
+              eficazes e juridicamente fundamentadas.
+            </p>
+          </div>
         </CardContent>
       </Card>
     </main>
