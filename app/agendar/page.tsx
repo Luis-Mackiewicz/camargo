@@ -99,21 +99,19 @@ export default function Agendar() {
 
   const onSubmit = async (data: FormData) => {
     try {
-      const response = await fetch(
-        "https://formsubmit.co/ajax/contato@camargoadvocacia.com.br",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify(data),
+      const response = await fetch("/api/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
+        body: JSON.stringify(data),
+      });
 
       if (response.ok) {
         router.push("/obrigado");
         form.reset();
+      } else {
+        console.error("Erro na resposta da API");
       }
     } catch (error) {
       console.error("Erro ao enviar", error);
