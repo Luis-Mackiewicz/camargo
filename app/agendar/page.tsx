@@ -19,6 +19,7 @@ import { SendHorizonal } from "lucide-react";
 import Image from "next/image";
 import { useForm, Controller, Control } from "react-hook-form";
 import * as z from "zod";
+import { AgendarBackground } from "@/components/background";
 
 const formSchema = z.object({
   name: z
@@ -120,93 +121,90 @@ export default function Agendar() {
   };
 
   return (
-    <main className="relative h-dvh w-full flex items-center justify-center">
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-linear-to-t from-blue-700/80 via-blue-800/60 to-gray-900 z-1/90" />
-        <div className="absolute inset-0 bg-[url('/background/background-schedulling.svg')] bg-cover bg-center opacity-40" />
-      </div>
+    <>
+      <AgendarBackground />
+      <main className="relative h-dvh w-full flex items-center justify-center">
+        <div className="h-3/4 w-4/5 grid grid-cols-1 grid-rows-3 bg-blue-950 border-0 shadow-2xl rounded-2xl md:grid-cols-3 md:grid-rows-1">
+          <aside className="p-2 flex flex-col items-center justify-center gap-2 md:p-8 lg:p-16">
+            <Image
+              src={CamargoLogo}
+              alt="logo camargo advocacia"
+              loading="eager"
+              className="hidden lg:flex"
+            />
+            <p className="text-white text-base font-bold">Localização:</p>
+            <Map />
+            <div></div>
+          </aside>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="flex items-center justify-center  bg-white/95 row-span-2 md:col-span-2 rounded-b-xl md:rounded-xl md:rounded-l-none"
+          >
+            <fieldset className="w-4/5 flex flex-col gap-2.5 md:gap-5 overflow-y-auto max-h-full pr-2">
+              <div className="flex flex-col">
+                <Input
+                  type="text"
+                  placeholder="nome"
+                  className="selection:bg-blue-900"
+                  {...form.register("name")}
+                />
 
-      <div className="h-3/4 w-4/5 grid grid-cols-1 grid-rows-3 bg-blue-950 border-0 shadow-2xl rounded-2xl md:grid-cols-3 md:grid-rows-1">
-        <aside className="p-2 flex flex-col items-center justify-center gap-2 md:p-8 lg:p-16">
-          <Image
-            src={CamargoLogo}
-            alt="logo camargo advocacia"
-            loading="eager"
-            className="hidden lg:flex"
-          />
-          <p className="text-white text-base font-bold">Localização:</p>
-          <Map />
-          <div></div>
-        </aside>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="flex items-center justify-center  bg-white/95 row-span-2 md:col-span-2 rounded-b-xl md:rounded-xl md:rounded-l-none"
-        >
-          <fieldset className="w-4/5 flex flex-col gap-2.5 md:gap-5 overflow-y-auto max-h-full pr-2">
-            <div className="flex flex-col">
-              <Input
-                type="text"
-                placeholder="nome"
-                className="selection:bg-blue-900"
-                {...form.register("name")}
-              />
+                {form.formState.errors.name && (
+                  <p className="text-red-500 text-sm">
+                    {form.formState.errors.name.message}
+                  </p>
+                )}
+              </div>
 
-              {form.formState.errors.name && (
-                <p className="text-red-500 text-sm">
-                  {form.formState.errors.name.message}
-                </p>
-              )}
-            </div>
+              <div className="flex flex-col">
+                <Input
+                  type="email"
+                  placeholder="email"
+                  className="selection:bg-blue-900"
+                  {...form.register("email")}
+                />
 
-            <div className="flex flex-col">
-              <Input
-                type="email"
-                placeholder="email"
-                className="selection:bg-blue-900"
-                {...form.register("email")}
-              />
+                {form.formState.errors.email && (
+                  <p className="text-red-500 text-sm">
+                    {form.formState.errors.email.message}
+                  </p>
+                )}
+              </div>
 
-              {form.formState.errors.email && (
-                <p className="text-red-500 text-sm">
-                  {form.formState.errors.email.message}
-                </p>
-              )}
-            </div>
+              <div className="flex flex-col">
+                <Input
+                  type="tel"
+                  placeholder="número"
+                  className="selection:bg-blue-900"
+                  {...form.register("phone")}
+                />
 
-            <div className="flex flex-col">
-              <Input
-                type="tel"
-                placeholder="número"
-                className="selection:bg-blue-900"
-                {...form.register("phone")}
-              />
+                {form.formState.errors.phone && (
+                  <p className="text-red-500 text-sm">
+                    {form.formState.errors.phone.message}
+                  </p>
+                )}
+              </div>
+              <div className="flex flex-col">
+                <SelectOption control={form.control} />
+                {form.formState.errors.area && (
+                  <p className="text-red-500 text-sm">
+                    {form.formState.errors.area.message}
+                  </p>
+                )}
+              </div>
+              <div className="flex flex-col">
+                <Textarea {...form.register("message")} />
+                {form.formState.errors.message && (
+                  <p className="text-red-500 text-sm">
+                    {form.formState.errors.message.message}
+                  </p>
+                )}
+              </div>
 
-              {form.formState.errors.phone && (
-                <p className="text-red-500 text-sm">
-                  {form.formState.errors.phone.message}
-                </p>
-              )}
-            </div>
-            <div className="flex flex-col">
-              <SelectOption control={form.control} />
-              {form.formState.errors.area && (
-                <p className="text-red-500 text-sm">
-                  {form.formState.errors.area.message}
-                </p>
-              )}
-            </div>
-            <div className="flex flex-col">
-              <Textarea {...form.register("message")} />
-              {form.formState.errors.message && (
-                <p className="text-red-500 text-sm">
-                  {form.formState.errors.message.message}
-                </p>
-              )}
-            </div>
-
-            <Button
-              variant="default"
-              className="
+              <Button
+                variant="default"
+                className="
                 cursor-pointer
                 rounded-2xl
                 shadow-2xl
@@ -220,14 +218,15 @@ export default function Agendar() {
                 active:scale-95
                 disabled:opacity-50
   "
-              disabled={!form.formState.isValid}
-            >
-              enviar
-              <SendHorizonal className="w-4 h-4" />
-            </Button>
-          </fieldset>
-        </form>
-      </div>
-    </main>
+                disabled={!form.formState.isValid}
+              >
+                enviar
+                <SendHorizonal className="w-4 h-4" />
+              </Button>
+            </fieldset>
+          </form>
+        </div>
+      </main>
+    </>
   );
 }
