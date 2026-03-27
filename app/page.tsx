@@ -32,7 +32,7 @@ export default function Home() {
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-linear-to-t from-blue-700/80 via-blue-800/60 to-gray-900 z-1/90" />
 
-        <div className="absolute inset-0 bg-[url('/bg-images/background-home.svg')] bg-cover bg-center opacity-60" />
+        <div className="absolute inset-0 bg-[url('/background/background-home.svg')] bg-cover bg-center opacity-60" />
       </div>
 
       <section className="h-3/4 w-4/5 mt-16 grid grid-cols-1  lg:grid-cols-2 lg:grid-rows-4">
