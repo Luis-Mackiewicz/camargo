@@ -21,7 +21,7 @@ export const areasOfSpecialization = [
     nome: "Direito do consumidor",
     alt: "direito do consumidor",
     description:
-      "Defesa dos direitos do consumidor em demandas relacionadas a cobranças indevidas, negativação irregular, vícios de produt",
+      "Defesa dos direitos do consumidor em demandas relacionadas a cobranças indevidas, negativação irregular, vícios de produto",
   },
   {
     id: 4,
