@@ -1,8 +1,8 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { Button } from "@/components/button";
 import { Input } from "@/components/input";
-import { useRouter } from "next/navigation";
 import {
   Select,
   SelectContent,
@@ -15,7 +15,7 @@ import {
 import { Textarea } from "@/components/textarea";
 import CamargoLogo from "@/public/logo.svg";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SendHorizonal } from "lucide-react";
+import { SendHorizonal, Loader2 } from "lucide-react";
 import Image from "next/image";
 import { useForm, Controller, Control } from "react-hook-form";
 import * as z from "zod";
@@ -26,7 +26,6 @@ const formSchema = z.object({
     .string()
     .min(3, "O nome precisa ter pelo menos 3 caracteres")
     .max(255, "O nome não pode ter mais de 255 caracteres"),
-
   email: z.string().email("Email inválido"),
   phone: z.string().min(10, "Telefone inválido"),
   area: z.string().min(1, "Selecione uma área"),
@@ -36,12 +35,13 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 type SelectOptionProps = {
   control: Control<FormData>;
+  disabled?: boolean;
 };
 
 const Map = () => {
   return (
     <iframe
-      src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3640.8260015049045!2d-52.7821633!3d-24.142748!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94f280d61498ce6b%3A0x82a00122dd0aa7c5!2sCamargo%20Advocacia%20e%20Assessoria%20Jur%C3%ADdica!5e0!3m2!1spt-BR!2sbr!4v1772710914354!5m2!1spt-BR!2sbr"
+      src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14515.688846387!2d-52.3551!3d-24.1256!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1spt-BR!2sbr!4v1710000000000"
       loading="lazy"
       allowFullScreen
       referrerPolicy="no-referrer-when-downgrade"
@@ -50,17 +50,20 @@ const Map = () => {
   );
 };
 
-const SelectOption = ({ control }: SelectOptionProps) => {
+const SelectOption = ({ control, disabled }: SelectOptionProps) => {
   return (
     <Controller
       control={control}
       name="area"
       render={({ field }) => (
-        <Select onValueChange={field.onChange} defaultValue={field.value}>
+        <Select
+          onValueChange={field.onChange}
+          defaultValue={field.value}
+          disabled={disabled}
+        >
           <SelectTrigger className="w-full">
             <SelectValue placeholder="áreas do direito" />
           </SelectTrigger>
-
           <SelectContent>
             <SelectGroup>
               <SelectLabel>Áreas do direito</SelectLabel>
@@ -83,6 +86,9 @@ const SelectOption = ({ control }: SelectOptionProps) => {
 };
 
 export default function Agendar() {
+  const [status, setStatus] = useState<"idle" | "sending" | "success">("idle");
+  const [cooldown, setCooldown] = useState(0);
+
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     mode: "onTouched",
@@ -95,26 +101,42 @@ export default function Agendar() {
     },
   });
 
-  const router = useRouter();
+  // Lógica do Cooldown sem disparar cascading renders
+  useEffect(() => {
+    if (cooldown === 0) return;
+
+    const timer = setInterval(() => {
+      setCooldown((prev) => {
+        if (prev <= 1) {
+          setStatus("idle"); // Reseta o status aqui, de forma assíncrona dentro do interval
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [cooldown]); // Depende apenas do cooldown inicial
 
   const onSubmit = async (data: FormData) => {
+    setStatus("sending");
     try {
       const response = await fetch("/api/send", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
 
       if (response.ok) {
-        router.push("/obrigado");
+        setStatus("success");
         form.reset();
+        setCooldown(30);
       } else {
-        console.error("Erro na resposta da API");
+        setStatus("idle");
       }
     } catch (error) {
       console.error("Erro ao enviar", error);
+      setStatus("idle");
     }
   };
 
@@ -136,17 +158,16 @@ export default function Agendar() {
           </aside>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="flex items-center justify-center  bg-white/95 row-span-2 md:col-span-2 rounded-b-xl md:rounded-xl md:rounded-l-none"
+            className="flex items-center justify-center bg-white/95 row-span-2 md:col-span-2 rounded-b-xl md:rounded-xl md:rounded-l-none"
           >
-            <fieldset className="w-4/5 flex flex-col gap-2.5 md:gap-5 overflow-y-auto max-h-full pr-2">
+            <fieldset className="w-4/5 flex flex-col gap-2.5 md:gap-5 overflow-y-auto max-h-full pr-2 py-4">
               <div className="flex flex-col">
                 <Input
-                  type="text"
                   placeholder="nome"
                   className="selection:bg-blue-900"
+                  disabled={status === "sending" || cooldown > 0}
                   {...form.register("name")}
                 />
-
                 {form.formState.errors.name && (
                   <p className="text-red-500 text-sm">
                     {form.formState.errors.name.message}
@@ -156,12 +177,11 @@ export default function Agendar() {
 
               <div className="flex flex-col">
                 <Input
-                  type="email"
                   placeholder="email"
                   className="selection:bg-blue-900"
+                  disabled={status === "sending" || cooldown > 0}
                   {...form.register("email")}
                 />
-
                 {form.formState.errors.email && (
                   <p className="text-red-500 text-sm">
                     {form.formState.errors.email.message}
@@ -171,28 +191,35 @@ export default function Agendar() {
 
               <div className="flex flex-col">
                 <Input
-                  type="tel"
                   placeholder="número"
                   className="selection:bg-blue-900"
+                  disabled={status === "sending" || cooldown > 0}
                   {...form.register("phone")}
                 />
-
                 {form.formState.errors.phone && (
                   <p className="text-red-500 text-sm">
                     {form.formState.errors.phone.message}
                   </p>
                 )}
               </div>
+
               <div className="flex flex-col">
-                <SelectOption control={form.control} />
+                <SelectOption
+                  control={form.control}
+                  disabled={status === "sending" || cooldown > 0}
+                />
                 {form.formState.errors.area && (
                   <p className="text-red-500 text-sm">
                     {form.formState.errors.area.message}
                   </p>
                 )}
               </div>
+
               <div className="flex flex-col">
-                <Textarea {...form.register("message")} />
+                <Textarea
+                  {...form.register("message")}
+                  disabled={status === "sending" || cooldown > 0}
+                />
                 {form.formState.errors.message && (
                   <p className="text-red-500 text-sm">
                     {form.formState.errors.message.message}
@@ -202,24 +229,23 @@ export default function Agendar() {
 
               <Button
                 variant="default"
-                className="
-                cursor-pointer
-                rounded-2xl
-                shadow-2xl
-               bg-blue-900
-               text-white
-                flex items-center gap-2
-                transition-all
-               duration-300
-                ease-in-out
-               hover:bg-green-600
-                active:scale-95
-                disabled:opacity-50
-  "
-                disabled={!form.formState.isValid}
+                className={`cursor-pointer rounded-2xl shadow-2xl text-white flex items-center justify-center gap-2 transition-all duration-300 active:scale-95 disabled:opacity-50 h-11
+                ${status === "success" ? "bg-green-600" : "bg-blue-900 hover:bg-green-600"}`}
+                disabled={
+                  !form.formState.isValid ||
+                  status === "sending" ||
+                  cooldown > 0
+                }
               >
-                enviar
-                <SendHorizonal className="w-4 h-4" />
+                {status === "sending" ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : cooldown > 0 ? (
+                  `aguarde ${cooldown}s`
+                ) : (
+                  <>
+                    enviar <SendHorizonal className="w-4 h-4" />
+                  </>
+                )}
               </Button>
             </fieldset>
           </form>
