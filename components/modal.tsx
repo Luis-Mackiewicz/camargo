@@ -38,7 +38,7 @@ export default function ServiceModal({ area, onClose }: ServiceModalProps) {
         <p className="text-center text-gray-700">{area.description}</p>
         <button
           onClick={onClose}
-          className="mt-2 px-6 py-2 bg-blue-900 text-white rounded-xl hover:bg-green-600 transition-colors"
+          className="p-2.5 bg-linear-to-r from-green-500 to-green-700 text-white font-bold rounded-xl cursor-pointer hover:scale-105 transition-transform"
         >
           Fechar
         </button>
