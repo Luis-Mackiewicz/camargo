@@ -1,4 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/card";
+import Image from "next/image";
+import CamargoImage from "@/public/camargo_image.jpeg";
 
 export default function Sobre() {
   return (
@@ -14,8 +16,15 @@ export default function Sobre() {
             Sobre
           </CardTitle>
         </CardHeader>
-        <CardContent className="w-4/5 h-4/5 flex flex-col justify-center items-center gap-8 lg:gap-18">
-          <div className="flex flex-col text-white overflow-y-auto gap-y-4 text-center md:text-start md:gap-y-8">
+        <CardContent className="h-4/5 w-4/5 grid grid-cols-1 overflow-y-auto lg:gap-x-8 lg:grid-cols-2">
+          <div className="hidden items-baseline justify-center lg:flex">
+            <Image
+              src={CamargoImage}
+              alt="Camargo Image"
+              className="h-full object-cover rounded-xl transition duration-300 hover:scale-105"
+            />
+          </div>
+          <div className="flex flex-col items-center justify-center text-white gap-y-2 text-center md:text-start lg:gap-y-8 md:p-0">
             <p>
               Na Camargo Advocacia, compreendemos o Direito como um instrumento
               essencial de proteção, garantia e efetivação de direitos, voltado
