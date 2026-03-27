@@ -16,12 +16,12 @@ export default function Sobre() {
             Sobre
           </CardTitle>
         </CardHeader>
-        <CardContent className="h-4/5 w-4/5 grid grid-cols-1 overflow-y-auto lg:gap-x-8 lg:grid-cols-2">
+        <CardContent className="h-4/5 w-4/5 grid grid-cols-1 overflow-y-auto lg:gap-x-8 lg:grid-cols-2 lg:overflow-hidden">
           <div className="hidden items-baseline justify-center lg:flex">
             <Image
               src={CamargoImage}
               alt="Camargo Image"
-              className="h-full object-cover rounded-xl transition duration-300 hover:scale-105"
+              className="h-full object-cover border border-white/10 transition-all duration-300"
             />
           </div>
           <div className="flex flex-col items-center justify-center text-white gap-y-2 text-center md:text-start lg:gap-y-8 md:p-0">
