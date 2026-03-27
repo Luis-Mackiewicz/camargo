@@ -1,0 +1,22 @@
+{
+  "devFiles": [],
+  "ampDevFiles": [],
+  "polyfillFiles": [
+    "static/chunks/f7f0b_next_dist_build_polyfills_polyfill-nomodule.js"
+  ],
+  "lowPriorityFiles": [],
+  "rootMainFiles": [
+    "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_a0c9a9e3._.js",
+    "static/chunks/f7f0b_next_dist_compiled_react-dom_6176977f._.js",
+    "static/chunks/f7f0b_next_dist_compiled_react-server-dom-turbopack_1dcc9618._.js",
+    "static/chunks/f7f0b_next_dist_compiled_next-devtools_index_acb7673e.js",
+    "static/chunks/f7f0b_next_dist_compiled_33e8497a._.js",
+    "static/chunks/f7f0b_next_dist_client_5c4b848f._.js",
+    "static/chunks/f7f0b_next_dist_16d3dc6f._.js",
+    "static/chunks/f7f0b_@swc_helpers_cjs_9a1b1eb7._.js",
+    "static/chunks/workspace_camargo-advocacia_a0ff3932._.js",
+    "static/chunks/turbopack-workspace_camargo-advocacia_4578f909._.js"
+  ],
+  "pages": {},
+  "ampFirstPages": []
+}

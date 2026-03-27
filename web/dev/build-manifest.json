@@ -1,0 +1,50 @@
+{
+  "pages": {
+    "/_app": [
+      "static/chunks/f7f0b_next_dist_compiled_eb124525._.js",
+      "static/chunks/f7f0b_next_dist_shared_lib_0254c5f5._.js",
+      "static/chunks/f7f0b_next_dist_client_42fe8824._.js",
+      "static/chunks/f7f0b_next_dist_b5702ab6._.js",
+      "static/chunks/f7f0b_next_app_eccea629.js",
+      "static/chunks/[next]_entry_page-loader_ts_8ab82ad2._.js",
+      "static/chunks/f7f0b_react-dom_54cceaf3._.js",
+      "static/chunks/f7f0b_0a5c3a59._.js",
+      "static/chunks/[root-of-the-server]__12b85c15._.js",
+      "static/chunks/workspace_camargo-advocacia_pages__app_2da965e7._.js",
+      "static/chunks/turbopack-workspace_camargo-advocacia_pages__app_b46a4102._.js"
+    ],
+    "/_error": [
+      "static/chunks/f7f0b_next_dist_compiled_eb124525._.js",
+      "static/chunks/f7f0b_next_dist_shared_lib_8ff56368._.js",
+      "static/chunks/f7f0b_next_dist_client_42fe8824._.js",
+      "static/chunks/f7f0b_next_dist_1b5547e4._.js",
+      "static/chunks/f7f0b_next_error_32bfba0a.js",
+      "static/chunks/[next]_entry_page-loader_ts_ecd86d71._.js",
+      "static/chunks/f7f0b_react-dom_54cceaf3._.js",
+      "static/chunks/f7f0b_0a5c3a59._.js",
+      "static/chunks/[root-of-the-server]__aba4af65._.js",
+      "static/chunks/workspace_camargo-advocacia_pages__error_2da965e7._.js",
+      "static/chunks/turbopack-workspace_camargo-advocacia_pages__error_4cfd7cbb._.js"
+    ]
+  },
+  "devFiles": [],
+  "polyfillFiles": [
+    "static/chunks/f7f0b_next_dist_build_polyfills_polyfill-nomodule.js"
+  ],
+  "lowPriorityFiles": [
+    "static/development/_ssgManifest.js",
+    "static/development/_buildManifest.js"
+  ],
+  "rootMainFiles": [
+    "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_a0c9a9e3._.js",
+    "static/chunks/f7f0b_next_dist_compiled_react-dom_6176977f._.js",
+    "static/chunks/f7f0b_next_dist_compiled_react-server-dom-turbopack_1dcc9618._.js",
+    "static/chunks/f7f0b_next_dist_compiled_next-devtools_index_acb7673e.js",
+    "static/chunks/f7f0b_next_dist_compiled_33e8497a._.js",
+    "static/chunks/f7f0b_next_dist_client_5c4b848f._.js",
+    "static/chunks/f7f0b_next_dist_16d3dc6f._.js",
+    "static/chunks/f7f0b_@swc_helpers_cjs_9a1b1eb7._.js",
+    "static/chunks/workspace_camargo-advocacia_a0ff3932._.js",
+    "static/chunks/turbopack-workspace_camargo-advocacia_4578f909._.js"
+  ]
+}
