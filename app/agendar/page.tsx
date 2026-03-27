@@ -15,7 +15,7 @@ import {
 import { Textarea } from "@/components/textarea";
 import CamargoLogo from "@/public/logo.svg";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SendHorizonal, Loader2 } from "lucide-react";
+import { SendHorizonal, Loader2, CheckCircle2 } from "lucide-react";
 import Image from "next/image";
 import { useForm, Controller, Control } from "react-hook-form";
 import * as z from "zod";
@@ -58,7 +58,7 @@ const SelectOption = ({ control, disabled }: SelectOptionProps) => {
       render={({ field }) => (
         <Select
           onValueChange={field.onChange}
-          defaultValue={field.value}
+          value={field.value}
           disabled={disabled}
         >
           <SelectTrigger className="w-full">
@@ -101,14 +101,13 @@ export default function Agendar() {
     },
   });
 
-  // Lógica do Cooldown sem disparar cascading renders
   useEffect(() => {
     if (cooldown === 0) return;
 
     const timer = setInterval(() => {
       setCooldown((prev) => {
         if (prev <= 1) {
-          setStatus("idle"); // Reseta o status aqui, de forma assíncrona dentro do interval
+          setStatus("idle");
           return 0;
         }
         return prev - 1;
@@ -116,7 +115,7 @@ export default function Agendar() {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [cooldown]); // Depende apenas do cooldown inicial
+  }, [cooldown]);
 
   const onSubmit = async (data: FormData) => {
     setStatus("sending");
@@ -144,8 +143,8 @@ export default function Agendar() {
     <>
       <AgendarBackground />
       <main className="relative h-dvh w-full flex items-center justify-center">
-        <div className="h-3/4 w-4/5 grid grid-cols-1 grid-rows-3 bg-blue-950 border-0 shadow-2xl rounded-2xl md:grid-cols-3 md:grid-rows-1">
-          <aside className="p-2 flex flex-col items-center justify-center gap-2 md:p-8 lg:p-16">
+        <div className="h-3/4 w-4/5 grid grid-cols-1 grid-rows-3 bg-blue-950 border-0 shadow-2xl rounded-2xl md:grid-cols-3 md:grid-rows-1 overflow-hidden">
+          <aside className="p-2 flex flex-col items-center justify-center gap-2 md:p-8 lg:p-16 text-center">
             <Image
               src={CamargoLogo}
               alt="logo camargo advocacia"
@@ -154,13 +153,22 @@ export default function Agendar() {
             />
             <p className="text-white text-base font-bold">Localização:</p>
             <Map />
-            <div></div>
           </aside>
+
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className="flex items-center justify-center bg-white/95 row-span-2 md:col-span-2 rounded-b-xl md:rounded-xl md:rounded-l-none"
           >
-            <fieldset className="w-4/5 flex flex-col gap-2.5 md:gap-5 overflow-y-auto max-h-full pr-2 py-4">
+            <fieldset className="w-4/5 flex flex-col gap-2.5 md:gap-4 overflow-y-auto max-h-full pr-2 py-6">
+              {status === "success" && (
+                <div className="flex items-center gap-2 p-3 bg-green-100 border border-green-200 text-green-800 rounded-lg animate-in fade-in slide-in-from-top-1 duration-500">
+                  <CheckCircle2 className="w-5 h-5 text-green-600" />
+                  <span className="text-sm font-medium">
+                    E-mail enviado com sucesso! Aguarde para enviar outro.
+                  </span>
+                </div>
+              )}
+
               <div className="flex flex-col">
                 <Input
                   placeholder="nome"
@@ -169,7 +177,7 @@ export default function Agendar() {
                   {...form.register("name")}
                 />
                 {form.formState.errors.name && (
-                  <p className="text-red-500 text-sm">
+                  <p className="text-red-500 text-[12px]">
                     {form.formState.errors.name.message}
                   </p>
                 )}
@@ -183,7 +191,7 @@ export default function Agendar() {
                   {...form.register("email")}
                 />
                 {form.formState.errors.email && (
-                  <p className="text-red-500 text-sm">
+                  <p className="text-red-500 text-[12px]">
                     {form.formState.errors.email.message}
                   </p>
                 )}
@@ -197,7 +205,7 @@ export default function Agendar() {
                   {...form.register("phone")}
                 />
                 {form.formState.errors.phone && (
-                  <p className="text-red-500 text-sm">
+                  <p className="text-red-500 text-[12px]">
                     {form.formState.errors.phone.message}
                   </p>
                 )}
@@ -209,7 +217,7 @@ export default function Agendar() {
                   disabled={status === "sending" || cooldown > 0}
                 />
                 {form.formState.errors.area && (
-                  <p className="text-red-500 text-sm">
+                  <p className="text-red-500 text-[12px]">
                     {form.formState.errors.area.message}
                   </p>
                 )}
@@ -217,11 +225,12 @@ export default function Agendar() {
 
               <div className="flex flex-col">
                 <Textarea
+                  placeholder="Sua mensagem..."
                   {...form.register("message")}
                   disabled={status === "sending" || cooldown > 0}
                 />
                 {form.formState.errors.message && (
-                  <p className="text-red-500 text-sm">
+                  <p className="text-red-500 text-[12px]">
                     {form.formState.errors.message.message}
                   </p>
                 )}
@@ -229,7 +238,7 @@ export default function Agendar() {
 
               <Button
                 variant="default"
-                className={`cursor-pointer rounded-2xl shadow-2xl text-white flex items-center justify-center gap-2 transition-all duration-300 active:scale-95 disabled:opacity-50 h-11
+                className={`cursor-pointer rounded-2xl text-white flex items-center justify-center gap-2 transition-all duration-300 active:scale-95 disabled:opacity-50 h-11
                 ${status === "success" ? "bg-green-600" : "bg-blue-900 hover:bg-green-600"}`}
                 disabled={
                   !form.formState.isValid ||
