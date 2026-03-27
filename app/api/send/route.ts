@@ -10,7 +10,7 @@ export async function POST(request: Request) {
 
     const { data, error } = await resend.emails.send({
       from: "Camargo - Website <onboarding@resend.dev>",
-      to: ["luismiguelpix@gmail.com"],
+      to: ["contato@camargoadvocacia.com.br"],
       subject: `⚖️ Novo Contato: ${name} - ${area}`,
       html: `
         <div style="background-color: #f6f9fc; padding: 40px 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
