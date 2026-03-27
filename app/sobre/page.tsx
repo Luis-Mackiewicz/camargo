@@ -19,7 +19,7 @@ export default function Sobre() {
               <Image
                 src={CamargoImage}
                 alt="Camargo Image"
-                className="h-full object-cover border border-white/10 transition-all duration-300"
+                className="h-full object-cover border border-white/10 rounded-2xl transition-all duration-300"
               />
             </div>
             <div className="flex flex-col items-center justify-center text-white gap-y-2 text-center md:text-start lg:gap-y-8 md:p-0">
