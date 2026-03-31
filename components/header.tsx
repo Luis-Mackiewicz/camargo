@@ -68,7 +68,7 @@ export default function Header() {
       </nav>
 
       {isOpen && (
-        <div className="md:hidden absolute top-12 left-0 w-full bg-linear-to-t from-blue-700 to-blue-800   backdrop-blur-md flex flex-col items-center gap-6 py-6 text-white text-base font-bold">
+        <div className="md:hidden absolute top-12 left-0 w-full bg-blue-950 backdrop-blur-md flex flex-col items-center gap-6 py-6 text-white text-base font-bold">
           <Link href="/" onClick={() => setIsOpen(false)}>
             Início
           </Link>
