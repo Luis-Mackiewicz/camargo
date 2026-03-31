@@ -26,36 +26,46 @@ export default function Servicos() {
             </p>
           </section>
 
-          <section className="border border-white/10 rounded-2xl w-full grid grid-cols-2 p-1 sm:grid-cols-3 gap-12 lg:p-30">
+          <section
+            className="
+            border border-white/10 rounded-2xl 
+            overflow-y-auto 
+            w-full 
+            max-h-[40dvh] sm:max-h-[50dvh] lg:max-h-[60dvh]
+            grid grid-cols-2 sm:grid-cols-3 
+            gap-4 sm:gap-6 lg:gap-8
+            p-3 sm:p-5 lg:p-8
+"
+          >
             {areasOfSpecialization.map((area) => (
               <div
                 key={area.id}
                 onClick={() => setSelected(area)}
-                className="group flex flex-col items-center text-center gap-4 cursor-pointer"
+                className="group flex flex-col items-center text-center gap-2 sm:gap-3 lg:gap-4 cursor-pointer"
               >
                 <div
                   className="
-                  relative
-                  p-5
-                  rounded-2xl
-                  bg-linear-to-br from-blue-600 to-blue-800
-                  shadow-lg
-                  transition-all
-                  group-hover:scale-110
-                  group-hover:shadow-blue-900/50
-                "
+        relative
+        p-3 sm:p-4 lg:p-5
+        rounded-2xl
+        bg-linear-to-br from-blue-600 to-blue-800
+        shadow-lg
+        transition-all
+        group-hover:scale-110
+        group-hover:shadow-blue-900/50
+      "
                 >
                   <Image
                     src={area.icone}
                     alt={area.alt}
-                    width={28}
-                    height={28}
+                    width={24}
+                    height={24}
+                    className="sm:w-7 sm:h-7"
                   />
-
                   <div className="absolute inset-0 rounded-2xl bg-blue-500/20 blur-xl opacity-0 group-hover:opacity-100 transition-all" />
                 </div>
 
-                <span className="text-sm md:text-base font-medium text-gray-100 group-hover:text-white transition-all">
+                <span className="text-xs sm:text-sm lg:text-base font-medium text-gray-100 group-hover:text-white transition-all">
                   {area.nome}
                 </span>
               </div>
