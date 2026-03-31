@@ -17,10 +17,13 @@ export default function Header() {
     <header className="h-12 w-full fixed top-0 z-50 border-b border-white/10 bg-black/5 backdrop-blur-md md:h-14">
       <nav className="w-full md:w-4/5 mx-auto flex items-center justify-between px-4 h-full">
         <Link href="/">
-          <Image src={CamargoIcon} alt="logo" className="w-8 h-8" />
+          <Image
+            src={CamargoIcon}
+            alt="logo"
+            className="w-8 h-8 transition-all duration-300 hover:scale-110"
+          />
         </Link>
 
-        {/* DESKTOP MENU */}
         <ul className="hidden md:flex items-center gap-8 text-white text-sm md:text-base">
           <li className="hover:opacity-40 transition-all duration-500">
             <Link href="/">Início</Link>
