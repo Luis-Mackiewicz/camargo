@@ -1,6 +1,0 @@
-1:"$Sreact.fragment"
-2:I[42747,["/_next/static/chunks/b9cf1b9da17c2a99.js","/_next/static/chunks/8f37389b5ba31ebc.js"],""]
-3:I[11065,["/_next/static/chunks/fedd379e4b2e2bde.js","/_next/static/chunks/96a6ff39077dfc42.js"],"OutletBoundary"]
-4:"$Sreact.suspense"
-0:{"buildId":"eUqYuHCp10L9cMh3DzYKX","rsc":["$","$1","c",{"children":[["$","div",null,{"className":"flex flex-col items-center justify-center gap-4 h-dvh w-full bg-black","children":[["$","h2",null,{"className":"text-4xl text-white font-bold","children":"404"}],["$","p",null,{"className":"text-xl text-white","children":"Página não encontrada!"}],["$","$L2",null,{"href":"/","className":"bg-linear-to-r from-pink-500 via-red-500 to-yellow-500 rounded-2xl p-2 hover:scale-105 md:w-3xs text-center","children":"Voltar"}]]}],null,["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"loading":null,"isPartial":false}
-5:null
