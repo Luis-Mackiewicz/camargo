@@ -1,11 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: "export",
-  distDir: "web",
   images: {
     unoptimized: true,
   },
+
+  output: "export",
+  distDir: "web",
   logging: {
     fetches: {
       fullUrl: true,
