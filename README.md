@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Camargo Advocacia
 
-## Getting Started
+Site institucional do escritório **Camargo Advocacia**, localizado em Janiópolis - PR. Apresenta as áreas de atuação, informações sobre o escritório, vídeos educativos e formulário de contato.
 
-First, run the development server:
+## Tecnologias
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Next.js 16** — Static Export (geração de HTML estático)
+- **React 19**
+- **TypeScript** — Strict mode
+- **Tailwind CSS v4** — com `tw-animate-css` e componentes shadcn/ui
+- **Zod** + **react-hook-form** — Validação de formulário
+- **Web3Forms** — Envio de formulários para email
+- **Vitest** — Testes unitários
+
+## Estrutura
+
+```
+├── app/            # Páginas (Home, Sobre, Serviços, Agendar, Vídeos)
+├── components/     # Componentes reutilizáveis (Header, Footer, Modal, shadcn)
+├── constants/      # Dados das áreas de atuação
+├── lib/            # Utilitários (cn)
+├── public/         # Imagens, ícones, sitemap
+│   ├── background/ # Backgrounds das páginas (WebP otimizado)
+│   └── service-icons/  # Ícones das áreas do direito
+└── __tests__/      # Testes unitários
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Páginas
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Rota | Descrição |
+|---|---|
+| `/` | Home com logo e CTA para agendamento |
+| `/sobre` | Sobre o escritório e o advogado |
+| `/servicos` | Áreas de atuação com modal de detalhes |
+| `/agendar` | Formulário de contato com mapa |
+| `/videos` | Seção de vídeos (em breve) |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Como rodar
 
-## Learn More
+```bash
+# Desenvolvimento (com hot reload)
+npm run dev
 
-To learn more about Next.js, take a look at the following resources:
+# Build de produção
+npm run build
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Servir build estática
+npx serve web/
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Testes
 
-## Deploy on Vercel
+```bash
+npm test
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Deploy
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+O build gera arquivos estáticos na pasta `web/`. Basta fazer deploy dela em qualquer hospedagem estática:
+
+```bash
+npm run build
+# Enviar a pasta web/ para Vercel, Netlify, GitHub Pages, etc.
+```
+
+## Contato
+
+- **Email:** contato@camargoadvocacia.com.br
+- **WhatsApp:** [Clique aqui](https://wa.me/554499912505)
+- **Instagram:** [@camargoadvocacia1](https://www.instagram.com/camargoadvocacia1/?hl=pt-br)
