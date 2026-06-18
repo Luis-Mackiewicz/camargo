@@ -27,7 +27,7 @@ export default function Footer() {
         >
           <Image
             src={InstagramIcon}
-            alt="icone do youtube"
+            alt="icone do instagram"
             className="w-6 md:w-8 transition-all hover:scale-125"
           />
         </a>
@@ -41,7 +41,11 @@ export default function Footer() {
             className="w-6 md:w-8 transition-all hover:scale-125"
           />
         </a>
-        <a href="" target="_blank">
+        <a
+          href="https://www.youtube.com/@camargoadvocacia"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <Image
             src={YoutubeIcon}
             alt="icone do youtube"

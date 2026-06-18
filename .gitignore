@@ -16,6 +16,9 @@
 # next.js
 /.next/
 
+# static export output
+/web
+
 # production
 /build
 

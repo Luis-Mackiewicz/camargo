@@ -21,7 +21,7 @@ export const areasOfSpecialization = [
     nome: "Direito do consumidor",
     alt: "direito do consumidor",
     description:
-      "Defesa dos direitos do consumidor em demandas relacionadas a cobranças indevidas, negativação irregular, vícios de produto",
+      "Defesa dos direitos do consumidor em demandas relacionadas a cobranças indevidas, negativação irregular, vícios de produto e serviço, revisão de contratos, práticas abusivas, e responsabilidade por danos. Atuamos na proteção dos consumidores perante fornecedores, com foco na reparação integral dos danos sofridos e na aplicação do Código de Defesa do Consumidor.",
   },
   {
     id: 4,

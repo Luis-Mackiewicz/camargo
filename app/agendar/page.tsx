@@ -15,11 +15,18 @@ import {
 import { Textarea } from "@/components/textarea";
 import CamargoLogo from "@/public/logo.svg";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { SendHorizonal, Loader2, CheckCircle2 } from "lucide-react";
+import { SendHorizonal, Loader2, CheckCircle2, XCircle } from "lucide-react";
 import Image from "next/image";
-import { useForm, Controller, Control } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import * as z from "zod";
 import { AgendarBackground } from "@/components/background";
+
+const API_URL = "https://api.web3forms.com/submit";
+
+const ACCESS_KEY =
+  process.env.NEXT_PUBLIC_WEB3FORMS_KEY || "fad04dd5-3ebe-47c7-8f45-bcc77507fc79";
+
+const phoneRegex = /^\(\d{2}\)\s?\d{4,5}-?\d{4}$/;
 
 const formSchema = z.object({
   name: z
@@ -27,14 +34,19 @@ const formSchema = z.object({
     .min(3, "O nome precisa ter pelo menos 3 caracteres")
     .max(255, "O nome não pode ter mais de 255 caracteres"),
   email: z.string().email("Email inválido"),
-  phone: z.string().min(10, "Telefone inválido"),
+  phone: z
+    .string()
+    .min(14, "Telefone inválido. Use o formato (XX) XXXXX-XXXX")
+    .regex(phoneRegex, "Telefone inválido. Use o formato (XX) XXXXX-XXXX"),
   area: z.string().min(1, "Selecione uma área"),
-  message: z.string().min(10, "Mensagem precida de no minimo 10 caracteres!"),
+  message: z
+    .string()
+    .min(10, "Mensagem precisa de no mínimo 10 caracteres"),
 });
 
 type FormData = z.infer<typeof formSchema>;
 type SelectOptionProps = {
-  control: Control<FormData>;
+  control: ReturnType<typeof useForm<FormData>>["control"];
   disabled?: boolean;
 };
 
@@ -45,7 +57,8 @@ const Map = () => {
       loading="lazy"
       allowFullScreen
       referrerPolicy="no-referrer-when-downgrade"
-      className="w-4/5 h-3/4 rounded-xl md:w-full md:h-auto lg:h-3/4"
+      className="w-4/5 h-64 rounded-xl md:w-full md:h-72 lg:h-3/4"
+      title="Localização do escritório Camargo Advocacia"
     ></iframe>
   );
 };
@@ -61,22 +74,25 @@ const SelectOption = ({ control, disabled }: SelectOptionProps) => {
           value={field.value}
           disabled={disabled}
         >
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder="áreas do direito" />
+          <SelectTrigger
+            className="w-full"
+            aria-label="Selecione a área do direito"
+          >
+            <SelectValue placeholder="Áreas do direito" />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
               <SelectLabel>Áreas do direito</SelectLabel>
-              <SelectItem value="civil">direito civil</SelectItem>
-              <SelectItem value="penal">direito penal</SelectItem>
-              <SelectItem value="trabalhista">direito trabalhista</SelectItem>
+              <SelectItem value="civil">Direito Civil</SelectItem>
+              <SelectItem value="penal">Direito Penal</SelectItem>
+              <SelectItem value="trabalhista">Direito Trabalhista</SelectItem>
               <SelectItem value="previdenciario">
-                direito previdenciário
+                Direito Previdenciário
               </SelectItem>
-              <SelectItem value="empresarial">direito empresarial</SelectItem>
-              <SelectItem value="familia">direito da família</SelectItem>
-              <SelectItem value="consumidor">direito do consumidor</SelectItem>
-              <SelectItem value="outro">outro</SelectItem>
+              <SelectItem value="empresarial">Direito Empresarial</SelectItem>
+              <SelectItem value="familia">Direito da Família</SelectItem>
+              <SelectItem value="consumidor">Direito do Consumidor</SelectItem>
+              <SelectItem value="outro">Outro</SelectItem>
             </SelectGroup>
           </SelectContent>
         </Select>
@@ -85,8 +101,19 @@ const SelectOption = ({ control, disabled }: SelectOptionProps) => {
   );
 };
 
+function formatPhone(value: string) {
+  const digits = value.replace(/\D/g, "").slice(0, 11);
+  if (digits.length <= 2) return `(${digits}`;
+  const ddd = digits.slice(0, 2);
+  const rest = digits.slice(2);
+  if (rest.length <= 4) return `(${ddd}) ${rest}`;
+  return `(${ddd}) ${rest.slice(0, rest.length - 4)}-${rest.slice(-4)}`;
+}
+
 export default function Agendar() {
-  const [status, setStatus] = useState<"idle" | "sending" | "success">("idle");
+  const [status, setStatus] = useState<
+    "idle" | "sending" | "success" | "error"
+  >("idle");
   const [cooldown, setCooldown] = useState(0);
 
   const form = useForm<FormData>({
@@ -120,10 +147,13 @@ export default function Agendar() {
   const onSubmit = async (data: FormData) => {
     setStatus("sending");
     try {
-      const response = await fetch("https://camargo-api.vercel.app/api/send", {
+      const response = await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          access_key: ACCESS_KEY,
+          ...data,
+        }),
       });
 
       if (response.ok) {
@@ -131,25 +161,27 @@ export default function Agendar() {
         form.reset();
         setCooldown(30);
       } else {
-        setStatus("idle");
+        setStatus("error");
       }
-    } catch (error) {
-      console.error("Erro ao enviar", error);
-      setStatus("idle");
+    } catch (err: unknown) {
+      console.error("Erro ao enviar", err);
+      setStatus("error");
     }
   };
+
+  const isDisabled = status === "sending" || cooldown > 0;
 
   return (
     <>
       <AgendarBackground />
       <main className="relative h-dvh w-full flex items-center justify-center">
-        <div className="h-3/4 w-4/5 grid grid-cols-1 grid-rows-3 bg-blue-950 border-0 shadow-2xl rounded-2xl md:grid-cols-3 md:grid-rows-1 overflow-hidden">
+        <div className="h-3/4 w-4/5 grid grid-cols-1 bg-blue-950 border-0 shadow-2xl rounded-2xl lg:grid-cols-3 overflow-hidden">
           <aside className="p-2 flex flex-col items-center justify-center gap-2 md:p-8 lg:p-16 text-center">
             <Image
               src={CamargoLogo}
               alt="logo camargo advocacia"
               loading="eager"
-              className="hidden lg:flex"
+              className="hidden md:flex lg:flex"
             />
             <p className="text-white text-base font-bold">Localização:</p>
             <Map />
@@ -157,80 +189,131 @@ export default function Agendar() {
 
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="flex items-center justify-center bg-white/95 row-span-2 md:col-span-2 rounded-b-xl md:rounded-xl md:rounded-l-none"
+            className="flex items-center justify-center bg-white/95 lg:col-span-2 rounded-b-xl md:rounded-xl lg:rounded-l-none"
+            noValidate
           >
             <fieldset className="w-4/5 flex flex-col gap-2.5 md:gap-4 overflow-y-auto max-h-full pr-2 py-6">
               {status === "success" && (
-                <div className="flex items-center gap-2 p-3 bg-green-100 border border-green-200 text-green-800 rounded-lg animate-in fade-in slide-in-from-top-1 duration-500">
-                  <CheckCircle2 className="w-5 h-5 text-green-600" />
+                <div
+                  className="flex items-center gap-2 p-3 bg-green-100 border border-green-200 text-green-800 rounded-lg animate-in fade-in slide-in-from-top-1 duration-500"
+                  role="alert"
+                >
+                  <CheckCircle2 className="w-5 h-5 text-green-600 shrink-0" />
                   <span className="text-sm font-medium">
                     E-mail enviado com sucesso! Aguarde para enviar outro.
                   </span>
                 </div>
               )}
 
+              {status === "error" && (
+                <div
+                  className="flex items-center gap-2 p-3 bg-red-100 border border-red-200 text-red-800 rounded-lg animate-in fade-in slide-in-from-top-1 duration-500"
+                  role="alert"
+                >
+                  <XCircle className="w-5 h-5 text-red-600 shrink-0" />
+                  <span className="text-sm font-medium">
+                    Erro ao enviar. Tente novamente mais tarde.
+                  </span>
+                </div>
+              )}
+
               <div className="flex flex-col">
+                <label htmlFor="name" className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                  Nome
+                </label>
                 <Input
-                  placeholder="nome"
+                  id="name"
+                  type="text"
+                  placeholder="Nome"
                   className="selection:bg-blue-900"
-                  disabled={status === "sending" || cooldown > 0}
+                  disabled={isDisabled}
+                  aria-required="true"
+                  aria-invalid={!!form.formState.errors.name}
                   {...form.register("name")}
                 />
                 {form.formState.errors.name && (
-                  <p className="text-red-500 text-[12px]">
+                  <p className="text-red-500 text-[12px]" role="alert">
                     {form.formState.errors.name.message}
                   </p>
                 )}
               </div>
 
               <div className="flex flex-col">
+                <label htmlFor="email" className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                  Email
+                </label>
                 <Input
-                  placeholder="email"
+                  id="email"
+                  type="email"
+                  placeholder="Email"
                   className="selection:bg-blue-900"
-                  disabled={status === "sending" || cooldown > 0}
+                  disabled={isDisabled}
+                  aria-required="true"
+                  aria-invalid={!!form.formState.errors.email}
                   {...form.register("email")}
                 />
                 {form.formState.errors.email && (
-                  <p className="text-red-500 text-[12px]">
+                  <p className="text-red-500 text-[12px]" role="alert">
                     {form.formState.errors.email.message}
                   </p>
                 )}
               </div>
 
               <div className="flex flex-col">
+                <label htmlFor="phone" className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                  Telefone
+                </label>
                 <Input
-                  placeholder="número"
+                  id="phone"
+                  type="tel"
+                  placeholder="(XX) XXXXX-XXXX"
                   className="selection:bg-blue-900"
-                  disabled={status === "sending" || cooldown > 0}
-                  {...form.register("phone")}
+                  disabled={isDisabled}
+                  aria-required="true"
+                  aria-invalid={!!form.formState.errors.phone}
+                  {...form.register("phone", {
+                    onChange: (e) => {
+                      const formatted = formatPhone(e.target.value);
+                      e.target.value = formatted;
+                    },
+                  })}
                 />
                 {form.formState.errors.phone && (
-                  <p className="text-red-500 text-[12px]">
+                  <p className="text-red-500 text-[12px]" role="alert">
                     {form.formState.errors.phone.message}
                   </p>
                 )}
               </div>
 
               <div className="flex flex-col">
+                <label htmlFor="area" className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                  Área do direito
+                </label>
                 <SelectOption
                   control={form.control}
-                  disabled={status === "sending" || cooldown > 0}
+                  disabled={isDisabled}
                 />
                 {form.formState.errors.area && (
-                  <p className="text-red-500 text-[12px]">
+                  <p className="text-red-500 text-[12px]" role="alert">
                     {form.formState.errors.area.message}
                   </p>
                 )}
               </div>
 
               <div className="flex flex-col">
+                <label htmlFor="message" className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+                  Mensagem
+                </label>
                 <Textarea
+                  id="message"
                   placeholder="Sua mensagem..."
+                  disabled={isDisabled}
+                  aria-required="true"
+                  aria-invalid={!!form.formState.errors.message}
                   {...form.register("message")}
-                  disabled={status === "sending" || cooldown > 0}
                 />
                 {form.formState.errors.message && (
-                  <p className="text-red-500 text-[12px]">
+                  <p className="text-red-500 text-[12px]" role="alert">
                     {form.formState.errors.message.message}
                   </p>
                 )}
@@ -239,7 +322,7 @@ export default function Agendar() {
               <Button
                 variant="default"
                 className={`cursor-pointer rounded-2xl text-white flex items-center justify-center gap-2 transition-all duration-300 active:scale-95 disabled:opacity-50 h-11
-                ${status === "success" ? "bg-green-600" : "bg-blue-900 hover:bg-green-600"}`}
+                  ${status === "success" ? "bg-green-600" : "bg-blue-900 hover:bg-green-600"}`}
                 disabled={
                   !form.formState.isValid ||
                   status === "sending" ||
@@ -247,12 +330,15 @@ export default function Agendar() {
                 }
               >
                 {status === "sending" ? (
-                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Enviando...
+                  </>
                 ) : cooldown > 0 ? (
-                  `aguarde ${cooldown}s`
+                  `Aguarde ${cooldown}s`
                 ) : (
                   <>
-                    enviar <SendHorizonal className="w-4 h-4" />
+                    Enviar <SendHorizonal className="w-4 h-4" />
                   </>
                 )}
               </Button>

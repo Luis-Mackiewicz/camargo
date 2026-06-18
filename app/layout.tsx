@@ -50,7 +50,7 @@ export const metadata: Metadata = {
 
     images: [
       {
-        url: "/banner.svg",
+        url: "/banner.jpg",
         width: 1200,
         height: 630,
         alt: "Camargo Advocacia",
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     description:
       "Atendimento jurídico humanizado e eficiente. Especializados em causas previdenciárias, familiares, consumidor e mais.",
 
-    images: ["/banner.jvg"],
+    images: ["/banner.jpg"],
   },
 
   metadataBase: new URL("https://www.camargoadvocacia.com.br"),

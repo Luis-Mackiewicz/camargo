@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/card";
 import Image from "next/image";
-import CoomingSoonImage from "@/public/coming-soon.svg";
+import ComingSoonImage from "@/public/coming-soon.svg";
 import { VideosBackground } from "@/components/background";
 
 export default function videos() {
@@ -16,15 +16,15 @@ export default function videos() {
           </CardHeader>
           <CardContent className="w-4/5 h-4/5 flex flex-col gap-4 md:gap-8 items-center justify-center">
             <Image
-              src={CoomingSoonImage}
-              alt="comming soon"
+              src={ComingSoonImage}
+              alt="Em breve"
               className="w-1/3"
             />
             <h1 className="text-2xl md:text-4xl font-bold text-center md:text-start">
               Seção de vídeos em breve!
             </h1>
             <p>
-              Estamos prearando uma nova seção com videos exclusívos sobre
+              Estamos preparando uma nova seção com vídeos exclusivos sobre
               direito.
             </p>
           </CardContent>

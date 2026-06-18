@@ -25,7 +25,9 @@ const consoleMessage = `
                                                                      
 `;
 
-console.log(consoleMessage);
+if (process.env.NODE_ENV === "development") {
+  console.log(consoleMessage);
+}
 
 export default function Home() {
   return (
