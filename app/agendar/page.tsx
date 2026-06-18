@@ -18,7 +18,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SendHorizonal, Loader2, CheckCircle2, XCircle } from "lucide-react";
 import Image from "next/image";
 import { useForm, Controller } from "react-hook-form";
-import * as z from "zod";
+import { z } from "zod";
 import { AgendarBackground } from "@/components/background";
 
 const API_URL = "https://api.web3forms.com/submit";
